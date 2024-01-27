@@ -43,7 +43,7 @@ def select_heroes():
     with Session(engine) as session:
         statement = select(Hero)
         heros = session.exec(statement).all()
-        print(heros)
+        return heros
 
 def main():
     create_db_and_tables()
