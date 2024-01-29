@@ -1,9 +1,17 @@
 from dataclasses import dataclass
+import json
+import logging
 import os
 from fastapi import APIRouter, Depends, HTTPException, routing, status
 from dotenv import load_dotenv
 
 import httpx
+
+logger = logging.getLogger(__name__)
+log_config_file = "/workspaces/Alteryx-Scheduler/app/app_logger/logging_configs/log_config.json"
+with open(log_config_file) as f_in:
+    config = json.load(f_in)
+    logging.config.dictConfig(config)
 
 load_dotenv()
 router = APIRouter()
