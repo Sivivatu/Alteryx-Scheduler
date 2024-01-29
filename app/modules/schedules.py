@@ -4,6 +4,7 @@ import logging
 import os
 from fastapi import APIRouter, Depends, HTTPException, routing, status
 from dotenv import load_dotenv
+import datetime as dt
 
 import httpx
 
@@ -14,30 +15,36 @@ with open(log_config_file) as f_in:
     logging.config.dictConfig(config)
 
 load_dotenv()
+
+
+base_url: str = os.getenv('SERVER_BASE_URL')
+api_access_key: str = os.getenv('API_ACCESS_KEY')
+api_access_secret: str = os.getenv('API_ACCESS_SECRET')
+
+
 router = APIRouter()
 
 # create function to check for http/https and adjust tranport flag
 def toggleSecureTransport():
-    print('baseUrl has scheme:',httpx.URL(baseUrl).scheme)
-    if httpx.URL(baseUrl).scheme =='http':
+    print('base_url has scheme:',httpx.URL(base_url).scheme)
+    if httpx.URL(base_url).scheme =='http':
         import os
         print('Adding OAUTHLIB_INSECURE_TRANSPORT flag to environment')
         os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-baseUrl = inputDF.baseURL[0]
 
-# toggleSecureTransport based on baseUrl
+# toggleSecureTransport based on base_url
 toggleSecureTransport()
 
 try:
     # build auth_data object to retrieve token
     auth_data = {
         'grant_type': 'client_credentials',
-        'client_id': inputDF.apiAccessKey[0],
-        'client_secret': inputDF.apiAccessSecret[0]
+        'client_id': api_access_key,
+        'client_secret': api_access_secret
     }
     
-    token = requests.post(baseUrl+'/oauth2/token', data=auth_data)
+    token = httpx.post(base_url+'/oauth2/token', data=auth_data)
     token=token.json()
     
     # add field for token expiration date
@@ -53,9 +60,9 @@ try:
 
     # build authorization and baseURL fields
     outputDF['Authorization']='Bearer '+outputDF['access_token']
-    outputDF['baseURL']=baseUrl
+    outputDF['baseURL']=base_url
 
-    Alteryx.write(outputDF,3)
+    return token
 
 
 
