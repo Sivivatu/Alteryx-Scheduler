@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer
 
-from app.db.database import create_db_and_tables, create_heroes, select_heroes, Users
+# from app.db.models import Users
 
 from app.routers import alt_schedules
 
