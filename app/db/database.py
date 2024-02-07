@@ -2,11 +2,12 @@ import os
 
 # One line of FastAPI imports here later 👈
 from sqlmodel import SQLModel, create_engine
-from sqlmodel.ext.asyncio.session import AsyncSession, AsyncEngine
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
+from sqlalchemy.ext.asyncio.session import AsyncSession
+
 
 from sqlalchemy.orm import sessionmaker
 
- 
 from . import models
 # class Hero(SQLModel, table=True):
 #     id: Optional[int] = Field(default=None, primary_key=True)
@@ -16,7 +17,7 @@ from . import models
 
 database_url = os.environ.get("DATABASE_URL")
 
-engine = create_engine(database_url, echo=True)
+engine = create_async_engine(database_url, echo=True)
 
 # async def init_db():
 #     async with engine.begin() as conn:
