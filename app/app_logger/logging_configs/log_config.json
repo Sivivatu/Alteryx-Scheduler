@@ -14,7 +14,7 @@
       "datefmt": "%Y-%m-%dT%H:%M:%S%z"
     },
     "json": {
-      "()": "app_logger.app_logger.MyJSONFormatter",
+      "()": "app_logger.MyJSONFormatter",
       "fmt_keys": {
         "level": "levelname",
         "message": "message",
