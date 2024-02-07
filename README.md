@@ -41,6 +41,10 @@ An example folder structure for the server:
 │       └── auth.py
 ```
 
+## Using Alembic
+
+The current process requires that the dev container is run as root to allow alembic to work correctly.
+
 ## Contributing
 
 Contributions are welcome! If you would like to contribute to Alteryx-Scheduler, please follow the guidelines outlined in the [CONTRIBUTING.md](/CONTRIBUTING.md) file.
