@@ -1,12 +1,14 @@
 from dataclasses import dataclass
 import json
 import logging
+from math import log
 import os
 from fastapi import APIRouter, Depends, HTTPException, routing, status
 from dotenv import load_dotenv
 import datetime as dt
 
 import httpx
+import urllib3
 
 logger = logging.getLogger(__name__)
 log_config_file = "/workspaces/Alteryx-Scheduler/app/app_logger/logging_configs/log_config.json"
@@ -56,40 +58,40 @@ try:
         columns.append(i)
         data.append(token[i])
 
-    outputDF = pd.DataFrame(data=[data], columns=columns)
+    # outputDF = pd.DataFrame(data=[data], columns=columns)
 
-    # build authorization and baseURL fields
-    outputDF['Authorization']='Bearer '+outputDF['access_token']
-    outputDF['baseURL']=base_url
+    # # build authorization and baseURL fields
+    # outputDF['Authorization']='Bearer '+outputDF['access_token']
+    # outputDF['baseURL']=base_url
 
     # return token
 
 except urllib3.exceptions.SSLError as e:
-    errorDF = pd.DataFrame([{"Error Message":e}])
-    Alteryx.write(errorDF,1)
-    print(f'Certificate verification failed: {e}')
+    # errorDF = pd.DataFrame([{"Error Message":e}])
+    # Alteryx.write(errorDF,1)
+    logger.error(f'Certificate verification failed: {e}')
 
-except requests.exceptions.Timeout as e:
-    errorDF = pd.DataFrame([{"Error Message":e}])
-    Alteryx.write(errorDF,1)
-    print(f'Request timed out: {e}')
+except httpx.TimeoutException.Timeout as e:
+    # errorDF = pd.DataFrame([{"Error Message":e}])
+    # Alteryx.write(errorDF,1)
+    logger.error(f'Request timed out: {e}')
 
 # SSL errors will likely show up here because requests is reporting
 # the error of an underlying library
-except requests.exceptions.ConnectionError as e:
-    errorDF = pd.DataFrame([{"Error Message":e}])
-    Alteryx.write(errorDF,1)
-    print(f'Connection error: {e}')
+except httpx.ConnectError as e:
+    # errorDF = pd.DataFrame([{"Error Message":e}])
+    # Alteryx.write(errorDF,1)
+    logger.error(f'Connection error: {e}')
 
-except requests.exceptions.RequestException as e:
-    errorDF = pd.DataFrame([{"Error Message":e}])
-    Alteryx.write(errorDF,1)
-    print(f'Request exception: {e}')
+except httpx.RequestError as e:
+    # errorDF = pd.DataFrame([{"Error Message":e}])
+    # Alteryx.write(errorDF,1)
+    logger.error(f'Request exception: {e}')
     
 except Exception as e:
-    errorDF = pd.DataFrame([{"Error Message":e}])
-    print(e)
-    Alteryx.write(errorDF,1)
+    # errorDF = pd.DataFrame([{"Error Message":e}])
+    # Alteryx.write(errorDF,1)
+    logger.error(e)
 
 
 def Alteryx_Oauth():
