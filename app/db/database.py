@@ -1,4 +1,7 @@
+from dotenv import load_dotenv
 import os
+
+load_dotenv()  # This loads the environment variables from .env
 
 # One line of FastAPI imports here later 👈
 from sqlmodel import SQLModel, create_engine
@@ -15,7 +18,8 @@ from . import models
 #     secret_name: str
 #     age: Optional[int] = None
 
-database_url = os.environ.get("DATABASE_URL")
+# database_url = os.environ.get("DATABASE_URL")
+database_url: str= f"postgresql+asyncpg://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 
 engine = create_async_engine(database_url, echo=True)
 

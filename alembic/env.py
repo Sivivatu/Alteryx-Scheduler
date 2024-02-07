@@ -8,10 +8,14 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import os
 
 # Access the database URL from the environment variable
-database_url = os.getenv("DATABASE_URL")
+database_url: str= f"postgresql+asyncpg://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
