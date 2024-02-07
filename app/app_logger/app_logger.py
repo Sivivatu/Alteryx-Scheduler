@@ -30,6 +30,20 @@ LOG_RECORD_BUILTIN_ATTRS = {
 }
 
 class MyJSONFormatter(logging.Formatter):
+    """
+    Custom JSON formatter for logging.
+
+    Args:
+        fmt_keys (dict[str, str] | None): A dictionary mapping log record attributes to their desired keys in the JSON output. Defaults to None.
+
+    Attributes:
+        fmt_keys (dict[str, str]): A dictionary mapping log record attributes to their desired keys in the JSON output.
+
+    Methods:
+        format(record: logging.LogRecord) -> str: Formats the log record as a JSON string.
+        _prepare_log_dict(record: logging.LogRecord): Prepares the log record as a dictionary for JSON serialization.
+    """
+
     def __init__(
         self,
         *,
