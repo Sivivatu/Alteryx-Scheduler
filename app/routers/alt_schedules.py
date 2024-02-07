@@ -1,4 +1,4 @@
-from modules.schedules import schedules
+from app.modules.schedules import schedules
 from fastapi import APIRouter
 
 import logging
