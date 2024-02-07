@@ -17,7 +17,10 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sudo apt update && sudo apt upgrade && sudo apt install sqlite3 -y && pip install --user -r requirements.txt",
+	// "postCreateCommand": "sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && sudo apt update && sudo apt upgrade && sudo apt install sqlite3 -y && pip install --user -r requirements.txt",
+	// "postCreateCommand": "useradd -m vscode && sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && sudo apt update && sudo apt upgrade && sudo apt install sqlite3 -y && pip install --user -r requirements.txt",
+	"postCreateCommand": "pipenv install && pipenv shell", // sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler &&  && sudo apt update && sudo apt upgrade && pip install --user pipenv &&  -r requirements.txt
+
 
 	// Configure tool-specific properties.
 	"customizations": {
