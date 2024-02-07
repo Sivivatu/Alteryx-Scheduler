@@ -19,6 +19,28 @@ To get started with Alteryx-Scheduler, follow these steps:
 
 For detailed instructions, please refer to the [documentation](/docs).
 
+An example folder structure for the server:
+
+```bash
+.
+├── app
+│   ├── __init__.py
+│   ├── main.py
+│   └── database
+│   │   ├── __init__.py
+│   │   ├── database.py
+│   │   └── models.py
+│   └── routers
+│   │   ├── __init__.py
+│   │   └── alt_schedules.py
+│   └── modules
+│   │   ├── __init__.py
+│   │   └── schedules.py
+│   └── internal
+│       ├── __init__.py
+│       └── auth.py
+```
+
 ## Contributing
 
 Contributions are welcome! If you would like to contribute to Alteryx-Scheduler, please follow the guidelines outlined in the [CONTRIBUTING.md](/CONTRIBUTING.md) file.
