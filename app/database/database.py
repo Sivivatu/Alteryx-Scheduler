@@ -18,9 +18,9 @@ database_url = os.environ.get("DATABASE_URL")
 
 engine = create_engine(database_url, echo=True)
 
-async def init_db():
-    async with engine.begin() as conn:
-        await conn.run_sync(SQLModel.metadata.create_all)
+# async def init_db():
+#     async with engine.begin() as conn:
+#         await conn.run_sync(SQLModel.metadata.create_all)
 
 async def get_session() -> AsyncSession:
     async_session = sessionmaker(
