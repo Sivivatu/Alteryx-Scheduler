@@ -7,21 +7,22 @@
 	
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
-		"ghcr.io/itsmechlark/features/postgresql:1": {},
+		"ghcr.io/itsmechlark/features/postgresql:1": {
+			"name": "postgresql"},
 		"ghcr.io/devcontainers/features/node:1": {},
 		"ghcr.io/devcontainers/features/python:1": {"version": "3.12",
 			"installTools": true}
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [5432],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && sudo apt update && sudo apt upgrade && sudo apt install sqlite3 -y && pip install --user -r requirements.txt",
 	// "postCreateCommand": "useradd -m vscode && sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && sudo apt update && sudo apt upgrade && sudo apt install sqlite3 -y && pip install --user -r requirements.txt",
-	"postCreateCommand": "sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && pipenv install && pipenv shell", //   && sudo apt update && sudo apt upgrade && pip install --user pipenv &&  -r requirements.txt
+	// "postCreateCommand": "sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && pipenv install --system && pipenv shell", //   && sudo apt update && sudo apt upgrade && pip install --user pipenv &&  -r requirements.txt
 
-
+	"postStartCommand": "sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && pipenv install --system && pipenv shell", //   && sudo apt update && sudo apt upgrade && pip install --user pipenv &&  -r requirements.txt
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
@@ -36,7 +37,7 @@
 				"alexcvzz.vscode-sqlite"
 			]
 		}
-	}
+	},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"remoteUser": "root"
 }
