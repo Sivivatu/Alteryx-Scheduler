@@ -10,6 +10,6 @@ class Users(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     username: str
     hashed_password: str
-    alteryx_id: str = field(nullable=True)
-    alteryx_api_key: str = field(nullable=True)
-    alteryx_api_secret: str = field(nullable=True)
+    alteryx_id: Optional[str]
+    alteryx_api_key: Optional[str]
+    alteryx_api_secret: Optional[str]
