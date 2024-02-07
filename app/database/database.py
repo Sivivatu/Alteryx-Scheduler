@@ -6,6 +6,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession, AsyncEngine
 
 from sqlalchemy.orm import sessionmaker
 
+ 
+from . import models
 # class Hero(SQLModel, table=True):
 #     id: Optional[int] = Field(default=None, primary_key=True)
 #     name: str
@@ -26,6 +28,7 @@ async def get_session() -> AsyncSession:
     )
     async with async_session(engine) as session:
         yield session
+
 
 
 # def create_db_and_tables():
@@ -64,5 +67,5 @@ async def get_session() -> AsyncSession:
 
 # More code here later 👇
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
