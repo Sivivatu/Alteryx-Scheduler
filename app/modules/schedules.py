@@ -62,8 +62,34 @@ try:
     outputDF['Authorization']='Bearer '+outputDF['access_token']
     outputDF['baseURL']=base_url
 
-    return token
+    # return token
 
+except urllib3.exceptions.SSLError as e:
+    errorDF = pd.DataFrame([{"Error Message":e}])
+    Alteryx.write(errorDF,1)
+    print(f'Certificate verification failed: {e}')
+
+except requests.exceptions.Timeout as e:
+    errorDF = pd.DataFrame([{"Error Message":e}])
+    Alteryx.write(errorDF,1)
+    print(f'Request timed out: {e}')
+
+# SSL errors will likely show up here because requests is reporting
+# the error of an underlying library
+except requests.exceptions.ConnectionError as e:
+    errorDF = pd.DataFrame([{"Error Message":e}])
+    Alteryx.write(errorDF,1)
+    print(f'Connection error: {e}')
+
+except requests.exceptions.RequestException as e:
+    errorDF = pd.DataFrame([{"Error Message":e}])
+    Alteryx.write(errorDF,1)
+    print(f'Request exception: {e}')
+    
+except Exception as e:
+    errorDF = pd.DataFrame([{"Error Message":e}])
+    print(e)
+    Alteryx.write(errorDF,1)
 
 
 def Alteryx_Oauth():
@@ -76,7 +102,3 @@ class Alteryx_Environment:
     server_url: str = os.getenv('SERVER_URL')
     api_access_key: str = os.getenv('API_ACCESS_KEY')
     api_access_secret: str = os.getenv('API_ACCESS_SECRET')
-
-@router.get("/schedules", Depends(Alteryx_Oauth))
-async def get_schedules():
-    return {"message": "Hello World"}
