@@ -7,6 +7,9 @@ from fastapi.security import OAuth2PasswordBearer
 
 from database.database import create_db_and_tables, create_heroes, select_heroes
 
+from app.routers import alt_schedules
+
+
 import logging.config
 
 logger = logging.getLogger(__name__)
@@ -18,6 +21,7 @@ with open(log_config_file) as f_in:
 
 logger.info("Starting FastAPI app")
 app = FastAPI()
+app.include_router(alt_schedules.router)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
