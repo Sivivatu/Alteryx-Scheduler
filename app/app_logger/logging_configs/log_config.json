@@ -7,7 +7,7 @@
     },
     "http": {
       "format": "%(levelname)s [%(asctime)s] %(name)s - %(message)s",
-      "datefmt": "%Y-%m-%d %H:%M:%S",
+      "datefmt": "%Y-%m-%d %H:%M:%S"
     },
     "detailed": {
       "format": "[%(levelname)s|%(module)s|L%(lineno)d] %(asctime)s: %(message)s",
@@ -46,7 +46,7 @@
       "class": "logging.StreamHandler",
       "formatter": "json",
       "stream": "ext://sys.stderr"
-  }
+    }
   },
   "loggers": {
     "root": {
@@ -57,13 +57,16 @@
       ]
     },
     "httpx": {
-      "handlers": ["httpx"],
+      "handlers": [
+        "httpx"
+      ],
       "level": "DEBUG"
-  },
-  "httpcore": {
-      "handlers": ["httpx"],
+    },
+    "httpcore": {
+      "handlers": [
+        "httpx"
+      ],
       "level": "DEBUG"
-  }
-
+    }
   }
 }
