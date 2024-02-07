@@ -1,10 +1,10 @@
 {
-    "name": "Alteryx-Scheduler",
+    "name": "Ayx-Scheduler",
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     "workspaceFolder": "/workspaces/Alteryx-Scheduler",
     // "forwardPorts": [5432],
-    "postStartCommand": "pipenv install --system && pipenv shell", //sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && 
+    // "postStartCommand": "pipenv install && pipenv shell", //pipenv install --system && sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && 
     "customizations": {
       "vscode": {
         "extensions": [
@@ -18,7 +18,10 @@
           "alexcvzz.vscode-sqlite"
         ]
       }
-    }//,
+    },
+    "mounts": [
+      "source=D:\\Alteryx-Scheduler,target=~/Alteryx_Scheduler,type=bind"
+    ]
     // "remoteUser": "root"
   }
   
