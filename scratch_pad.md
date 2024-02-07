@@ -1,6 +1,10 @@
 docker run --hostname=3c08ac278ba1 --env=POSTGRES_USER=postgres --env=POSTGRES_DB=postgres --env=POSTGRES_PASSWORD=postgres --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/postgresql/16/bin --env=GOSU_VERSION=1.16 --env=LANG=en_US.utf8 --env=PG_MAJOR=16 --env=PG_VERSION=16.1-1.pgdg120+1 --env=PGDATA=/var/lib/postgresql/data --volume=/var/lib/postgresql/data --network=alteryx-scheduler_devcontainer_default --restart=unless-stopped --label='com.docker.compose.config-hash=43618a57865b8e2122e328843ac91c8b8cac678918ed9aa34052008eefe66247' --label='com.docker.compose.container-number=1' --label='com.docker.compose.depends_on=' --label='com.docker.compose.image=sha256:75b7bff7c3ad1ae4468a2107724459061dc87d2176f8f02747a360c32b8c58b9' --label='com.docker.compose.oneoff=False' --label='com.docker.compose.project=alteryx-scheduler_devcontainer' --label='com.docker.compose.project.config_files=/workspaces/Alteryx-Scheduler/.devcontainer/docker-compose.yml,/tmp/devcontainercli-root/docker-compose/docker-compose.devcontainer.build-1706208978333.yml,/tmp/devcontainercli-root/docker-compose/docker-compose.devcontainer.containerFeatures-1706208978890.yml' --label='com.docker.compose.project.working_dir=/workspaces/Alteryx-Scheduler/.devcontainer' --label='com.docker.compose.service=db' --label='com.docker.compose.version=2.12.2' --runtime=runc -d postgres:latest
 
 
+### possible db url
+DATABASE_URL=postgresql+asyncpg://postgres:postgres@alteryx-scheduler_devcontainer-db-1:5432/axy_scheduler
+
+
 
 ```python
 #################################
