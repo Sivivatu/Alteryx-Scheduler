@@ -1,13 +1,10 @@
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # This loads the environment variables from .env
-
 # One line of FastAPI imports here later 👈
-from sqlmodel import SQLModel, create_engine
+# from sqlmodel import SQLModel
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlalchemy.ext.asyncio.session import AsyncSession
-
 
 from sqlalchemy.orm import sessionmaker
 
@@ -18,23 +15,25 @@ from . import models
 #     secret_name: str
 #     age: Optional[int] = None
 
+# Load environment variables from .env file
+load_dotenv() 
+
 # database_url = os.environ.get("DATABASE_URL")
 database_url: str= f"postgresql+asyncpg://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 
-engine = create_async_engine(database_url, echo=True)
+engine: AsyncEngine = create_async_engine(database_url, echo=True)
 
-# async def init_db():
-#     async with engine.begin() as conn:
-#         await conn.run_sync(SQLModel.metadata.create_all)
 
-async def get_session() -> AsyncSession:
+async def get_session():
     async_session = sessionmaker(
         engine, class_=AsyncSession, expire_on_commit=False
     )
-    async with async_session(engine) as session:
+    async with async_session() as session:
         yield session
 
-
+async def get_user_by_username(username: str, session: AsyncSession):
+    user = await session.exec(models.Users.select().where(models.Users.username == username))
+    return user
 
 # def create_db_and_tables():
 #     SQLModel.metadata.create_all(engine)
