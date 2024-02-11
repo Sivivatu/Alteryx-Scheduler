@@ -3,11 +3,13 @@ from typing import Annotated, Optional
 from fastapi import Depends, FastAPI, Request, Header
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from fastapi.security import OAuth2PasswordBearer
+from internal.auth import oauth2_scheme
 
 # from app.db.models import Users
 
-from app.routers import alt_schedules
+from internal import auth
+# from app.routers import alt_schedules
+
 
 
 import logging.config
@@ -18,14 +20,12 @@ with open(log_config_file) as f_in:
     config = json.load(f_in)
     logging.config.dictConfig(config)
 
-
 logger.info("Starting FastAPI app")
 app = FastAPI()
-app.include_router(alt_schedules.router)
+# app.include_router(alt_schedules.router)
+app.include_router(auth.router)
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="../frontend/templates")
 
 films = [
         {'name': 'Blade Runner', 'director': 'Ridley Scott'},
@@ -34,11 +34,15 @@ films = [
         {'name': 'The Shawshank Redemption', 'director': 'Frank Darabont'},
     ]
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/")
+async def read_root(token: Annotated[str, Depends(oauth2_scheme)]):
+    return {token: token}
+
+@app.get("/films", response_class=HTMLResponse)
 async def root(
                 request: Request, 
                 hx_request: Optional[str] = Header(None)
-            ):
+            ) -> HTMLResponse:
     
     context = {"request": request, "films": films}
     if hx_request:
