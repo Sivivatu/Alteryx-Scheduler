@@ -33,6 +33,7 @@ uvicorn = "==0.27.0"
 urllib3 = "*"
 python-multipart = "*"
 python-jose = {extras = ["cryptography"], version = "*"}
+passlib = "*"
 
 [dev-packages]
 ruff = "*"
