@@ -3,7 +3,7 @@ from sqlmodel import Field, SQLModel
 
 class Users(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    username: str
+    username: str = Field(index=True, unique=True)
     hashed_password: str
     email: str
     full_name: str
@@ -15,4 +15,15 @@ class Users(SQLModel, table=True):
 class UserInDB(Users):
     hashed_password: str
 
-# async def get_username(username: str, session: AsyncSession):
+class UserCreate(Users):
+    username: str
+    password: str
+
+class UserUpdate(Users):
+    username: str
+    email: str
+    full_name: str
+    disabled: bool
+    alteryx_id: str
+    alteryx_api_key: str
+    alteryx_api_secret: str
