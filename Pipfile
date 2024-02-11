@@ -31,6 +31,8 @@ starlette = "==0.35.1"
 typing-extensions = "==4.9.0"
 uvicorn = "==0.27.0"
 urllib3 = "*"
+python-multipart = "*"
+python-jose = {extras = ["cryptography"], version = "*"}
 
 [dev-packages]
 ruff = "*"
