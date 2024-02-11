@@ -4,23 +4,25 @@
     "service": "app",
     "workspaceFolder": "/workspaces/Alteryx-Scheduler",
     // "forwardPorts": [5432],
-    // "postStartCommand": "pipenv install && pipenv shell", //pipenv install --system && sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && 
+    "postStartCommand": "pipenv install", // && pipenv shell", //pipenv install --system && sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && 
     "customizations": {
       "vscode": {
         "extensions": [
           "patbenatar.advanced-new-file",
           "ms-python.python",
-          "ms-python.vscode-pylance",
+          // "ms-python.vscode-pylance",
           "GitHub.copilot-chat",
           "GitHub.copilot",
           "ms-azuretools.vscode-docker",
           "bradlc.vscode-tailwindcss",
-          "alexcvzz.vscode-sqlite"
+          "alexcvzz.vscode-sqlite",
+          "charliermarsh.ruff",
+          "ckolkman.vscode-postgres"
         ]
       }
     },
     "mounts": [
-      "source=D:\\Alteryx-Scheduler,target=~/Alteryx_Scheduler,type=bind"
+      "source=D:\\Alteryx-Scheduler,target=/workspaces/Alteryx-Scheduler,type=bind"
     ]
     // "remoteUser": "root"
   }

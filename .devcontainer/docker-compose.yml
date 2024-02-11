@@ -8,19 +8,21 @@ services:
       # - ..:/workspaces/Alteryx-Scheduler
     working_dir: /workspaces/Alteryx-Scheduler
     command: /bin/sh -c "while sleep 1000; do :; done"
-    environment:
-      # Define any environment variables here if needed
-      - DB_HOST=localhost
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=axy_scheduler
+    # environment:
+    #   # Define any environment variables here if needed
+    #   - DB_HOST=axy-scheduler-db
+    #   - DB_PORT=5432
+    #   - DB_USER=postgres
+    #   - DB_PASSWORD=postgres
+    #   - DB_NAME=axy_scheduler
     depends_on:
       - db
   db:
     container_name: axy-scheduler-db
     image: postgres
     environment:
+      POSTGRES_DB: axy_scheduler
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
