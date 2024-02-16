@@ -3,14 +3,12 @@ from typing import Annotated, Optional
 from fastapi import Depends, FastAPI, Request, Header
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from internal.auth import oauth2_scheme
+from internal.auth import hash_password, oauth2_scheme
 
 # from app.db.models import Users
 
 from internal import auth
 # from app.routers import alt_schedules
-
-
 
 import logging.config
 
@@ -36,7 +34,7 @@ films = [
 
 @app.get("/")
 async def read_root(token: Annotated[str, Depends(oauth2_scheme)]):
-    return {token: token}
+    return {"token": token}
 
 @app.get("/films", response_class=HTMLResponse)
 async def root(
@@ -49,3 +47,6 @@ async def root(
         return templates.TemplateResponse("partial/table.html", context)
 
     return templates.TemplateResponse("index.html", context)
+
+pwd = hash_password("test")
+print(pwd)
