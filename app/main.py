@@ -1,5 +1,6 @@
 import json
 from typing import Annotated, Optional
+from urllib import response
 from fastapi import Depends, FastAPI, Request, Header
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -33,12 +34,15 @@ films = [
     ]
 
 @app.get("/")
-async def read_root(token: Annotated[str, Depends(oauth2_scheme)]):
-    return {token: token}
+async def read_root(request: Request, response_class=HTMLResponse):
+    context = {"request": request}
+    return templates.TemplateResponse("index.html", context)
+    # return {token: token}
 
 @app.get("/films", response_class=HTMLResponse)
 async def root(
                 request: Request, 
+                token: Annotated[str, Depends(oauth2_scheme)],
                 hx_request: Optional[str] = Header(None)
             ) -> HTMLResponse:
     
