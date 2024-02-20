@@ -10,16 +10,17 @@ class TokenData(SQLModel):
 
 class UserBase(SQLModel):
     username: str = Field(index=True, unique=True)
-    hashed_password: str
-    # email: str
-    # full_name: str
-    # disabled: bool = False
-    # alteryx_id: str | None = None
-    # alteryx_api_key: str | None = None
-    # alteryx_api_secret: str | None = None
+    disabled: bool = False
 
-class User(UserBase):
+class User(UserBase, table=True):
     id: int = Field(default=None, primary_key=True)
+    hashed_password: str
+    email: str | None = Field(default=None, index=True)
+    full_name: str
+    alteryx_id: str
+    alteryx_api_key: str
+    alteryx_api_secret: str
+
 
 class UserInDB(UserBase):
     pass
@@ -28,6 +29,20 @@ class CreateUser(UserBase):
     password: str
     email: str | None = Field(default=None, index=True)
 
+class ReadCreatedUser(UserBase):
+    id: int
+    username: str
+    email: str | None
+
+class ReadUser(UserBase):
+    id: int
+    username: str
+    email: str
+    full_name: str
+    disabled: bool
+    alteryx_id: str
+    alteryx_api_key: str
+    alteryx_api_secret: str
 
 class UserUpdate(UserBase):
     username: str
