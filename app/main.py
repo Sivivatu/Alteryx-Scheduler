@@ -39,7 +39,7 @@ async def read_root(request: Request, response_class=HTMLResponse):
     return templates.TemplateResponse("index.html", context)
     # return {token: token}
 
-@app.get("/films", response_class=HTMLResponse)
+@app.get("/movies", response_class=HTMLResponse)
 async def root(
                 request: Request, 
                 token: Annotated[str, Depends(oauth2_scheme)],
