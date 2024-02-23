@@ -16,10 +16,10 @@ class User(UserBase, table=True):
     id: int = Field(default=None, primary_key=True)
     hashed_password: str
     email: str | None = Field(default=None, index=True)
-    full_name: str
-    alteryx_id: str
-    alteryx_api_key: str
-    alteryx_api_secret: str
+    full_name: str | None = Field(default=None)
+    alteryx_id: str | None = Field(default=None)
+    alteryx_api_key: str | None = Field(default=None)
+    alteryx_api_secret: str | None = Field(default=None)
 
 
 class UserInDB(UserBase):
