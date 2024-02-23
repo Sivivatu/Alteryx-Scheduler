@@ -9,7 +9,7 @@ from fastapi import Depends, HTTPException, status, APIRouter
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlmodel import select
 from sqlalchemy.ext.asyncio.session import AsyncSession
-from db.models import CreateUser, TokenData, User, UserInDB
+from db.models import CreateUser, ReadCreatedUser, ReadUser, TokenData, User, UserInDB
 from db.database import get_async_session, get_user_by_username
 
 import logging.config
@@ -127,14 +127,14 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/users/me",
-            response_model=User,
+            response_model=ReadUser,
             tags=[Tags.users],
             summary="Get current user")
-async def read_users_me(current_user: User = Depends(get_current_active_user)) -> User:
+async def read_users_me(current_user: User = Depends(get_current_active_user)) -> ReadUser:
     return current_user
 
 @router.post("/register",
-             response_model=CreateUser, 
+             response_model=ReadCreatedUser, 
              tags=["users"],
              summary="Register a new user")
 async def register_user(user: CreateUser, session: AsyncSession = Depends(get_async_session)) -> CreateUser:
@@ -154,4 +154,5 @@ async def register_user(user: CreateUser, session: AsyncSession = Depends(get_as
         session.add(db_user)
         await session.commit()
         await session.refresh(db_user)
-        return db_user
+        return_db_user = ReadCreatedUser(db_user)
+        return return_db_user
