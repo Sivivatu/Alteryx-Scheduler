@@ -47,7 +47,7 @@ async def read_root(request: Request, response_class=HTMLResponse):
 
 
 @app.get("/admin")
-async def read_root(request: Request, response_class=HTMLResponse):
+async def admin_tests(request: Request, response_class=HTMLResponse):
     context = {"request": request}
     return templates.TemplateResponse("index-admin.html", context)
     # return {token: token}
