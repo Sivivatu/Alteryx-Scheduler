@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better Alteryx Scheduler</title>
+
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <div class="flex"> 
+        <!-- Hamburger Menu -->
+        <button class="md:hidden block text-gray-500 hover:text-white focus:outline-none focus:text-white">
+            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M4 6h16a1 1 0 110 2H4a1 1 0 110-2zm0 5h16a1 1 0 110 2H4a1 1 0 110-2zm0 5h16a1 1 0 110 2H4a1 1 0 110-2z"
+            ></path>
+            </svg>
+        </button>
+        <!-- Side navigation -->
+        <div id="sidenav" class="fixed inset-y-0 left-0 w-64  bg-gray-600 text-white px-4 py-6 hidden md:block">
+            <ul>
+                <li class="py-2">
+                    <a href="/" class="block hover:text-gray-300">Home</a>
+                </li>
+                <li class="py-2">
+                    <a href="/movies" class="block hover:text-gray-300">Movies</a>
+                </li>
+                <!-- Add more menu items -->
+            </ul>
+        </div>
+
+        <!-- Page content -->
+        <div id="main" class="flex-grow px-4 py-6 md:pl-64">
+            <h1 class="p-6 bg-red-500">Movie list for updates</h1>
+            <div class="mx-4">
+                <p class="text-2xl font-bold mb-4">Movie List</p>
+
+                <table class="min-w-[50%] mb-4">
+                    <thead class="border-b text-lg">
+                        <tr>
+                            <th class="border">Title</th>
+                            <th class="border">Director</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-centre text-sm" id="table-body">
+                    {% include 'partial/table.html' %}
+
+                    </tbody>
+                </table>
+                
+                <button class="px-3 py-1 bg-blue-600 text-white ml-4"
+                    hx-get="/" 
+                    hx-target="#table-body"
+                    hx-swap="beforeend">Load More</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
