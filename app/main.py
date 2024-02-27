@@ -12,6 +12,7 @@ from fastapi.templating import Jinja2Templates
 # from app.db.models import Users
 from internal import auth
 from internal.auth import oauth2_scheme
+from routers import api
 
 logger = logging.getLogger(__name__)
 log_config_file = (
@@ -25,8 +26,21 @@ logger.info("Starting FastAPI app")
 app = FastAPI()
 # app.include_router(alt_schedules.router)
 app.include_router(auth.router)
+app.include_router(api.router)
+
 app.mount(
-    "/static", StaticFiles(directory="../frontend/templates/images"), name="images"
+    "/images", StaticFiles(directory="../frontend/templates/images"), name="images"
+)
+app.mount(
+    "/partials",
+    StaticFiles(directory="../frontend/templates/partials"),
+    name="partials",
+)
+app.mount("/css", StaticFiles(directory="../frontend/templates/css"), name="css")
+app.mount("/js", StaticFiles(directory="../frontend/templates/js"), name="js")
+app.mount("/fonts", StaticFiles(directory="../frontend/templates/fonts"), name="fonts")
+app.mount(
+    "/favicon.ico", StaticFiles(directory="../frontend/templates"), name="favicon.ico"
 )
 
 templates = Jinja2Templates(directory="../frontend/templates")
@@ -46,21 +60,21 @@ async def read_root(request: Request, response_class=HTMLResponse):
     # return {token: token}
 
 
-@app.get("/admin")
-async def admin_tests(request: Request, response_class=HTMLResponse):
-    context = {"request": request}
-    return templates.TemplateResponse("index-admin.html", context)
-    # return {token: token}
+# @app.get("/admin")
+# async def admin_tests(request: Request, response_class=HTMLResponse):
+#     context = {"request": request}
+#     return templates.TemplateResponse("index-admin.html", context)
+#     # return {token: token}
 
 
 @app.get("/movies", response_class=HTMLResponse)
 async def root(
     request: Request,
-    token: Annotated[str, Depends(oauth2_scheme)],
+    # token: Annotated[str, Depends(oauth2_scheme)],
     hx_request: Optional[str] = Header(None),
 ) -> HTMLResponse:
     context = {"request": request, "films": films}
     if hx_request:
         return templates.TemplateResponse("partial/table.html", context)
 
-    return templates.TemplateResponse("index.html", context)
+    return templates.TemplateResponse("index-hx.html", context)
