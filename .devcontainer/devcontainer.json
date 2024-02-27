@@ -3,7 +3,7 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     "workspaceFolder": "/workspaces/Alteryx-Scheduler",
-    // "forwardPorts": [5432],
+    // "runArgs": [ "--network", "host"],
     "postStartCommand": "pipenv install", // && pipenv shell", //pipenv install --system && sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && 
     "customizations": {
       "vscode": {

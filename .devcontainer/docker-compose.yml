@@ -5,7 +5,6 @@ services:
     image: mcr.microsoft.com/devcontainers/python:3.12
     volumes:
       - D:\\Alteryx-Scheduler:/workspaces/Alteryx-Scheduler
-      # - ..:/workspaces/Alteryx-Scheduler
     working_dir: /workspaces/Alteryx-Scheduler
     command: /bin/sh -c "while sleep 1000; do :; done"
     # environment:
