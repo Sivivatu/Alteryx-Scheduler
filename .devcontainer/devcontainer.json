@@ -8,16 +8,16 @@
     "customizations": {
       "vscode": {
         "extensions": [
-          "patbenatar.advanced-new-file",
-          "ms-python.python",
-          // "ms-python.vscode-pylance",
-          "GitHub.copilot-chat",
-          "GitHub.copilot",
-          "ms-azuretools.vscode-docker",
-          "bradlc.vscode-tailwindcss",
-          "alexcvzz.vscode-sqlite",
-          "charliermarsh.ruff",
-          "ckolkman.vscode-postgres"
+            "patbenatar.advanced-new-file",
+            "ms-python.python",
+            "GitHub.copilot-chat",
+            "GitHub.copilot",
+            "ms-azuretools.vscode-docker",
+            "bradlc.vscode-tailwindcss",
+            "alexcvzz.vscode-sqlite",
+            "charliermarsh.ruff",
+            "ckolkman.vscode-postgres",
+            "esbenp.prettier-vscode"
         ]
       }
     },
