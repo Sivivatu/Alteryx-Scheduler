@@ -1,0 +1,39 @@
+<aside :class="sidebarToggle ? 'translate-x-0' : '-translate-x-full'"
+    class="absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0"
+    @click.outside="sidebarToggle = false">
+    <!-- SIDEBAR HEADER -->
+    <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+        <!-- Hamburger Menu -->
+        <button class="block lg:hidden bg-white" hx-get="/api/toggleSidebar" hx-trigger="click" hx-swap="outerHTML">
+            <svg class="fill-current w-5 h-4" viewBox="0 0 24 24" fill="none">
+                <path
+                    d="M4 6h16a1 1 0 110 2H4a1 1 0 110-2zm0 5h16a1 1 0 110 2H4a1 1 0 110-2zm0 5h16a1 1 0 110 2H4a1 1 0 110-2z">
+                </path>
+            </svg>
+            <!-- <svg class="fill-current w-5 h-4" viewBox="0 0 24 24" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M4 6h16a1 1 0 110 2H4a1 1 0 110-2zm0 5h16a1 1 0 110 2H4a1 1 0 110-2zm0 5h16a1 1 0 110 2H4a1 1 0 110-2z">
+                </path>
+            </svg> -->
+        </button>
+        <!-- Hamburger Menu -->
+    </div>
+    <!-- SIDEBAR HEADER -->
+
+
+    <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+        <nav class="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
+            <!-- Side navigation -->
+            <div id="sidenav" class="fixed inset-y-0 left-0 w-64  bg-gray-600 text-white px-4 py-6 hidden md:block">
+                <ul>
+                    <li class="py-2">
+                        <a href="/" class="block hover:text-gray-300">Home</a>
+                    </li>
+                    <li class="py-2">
+                        <a href="/movies" class="block hover:text-gray-300">Movies</a>
+                    </li>
+                    <!-- Add more menu items -->
+                </ul>
+            </div>
+        </nav>
+</aside>
