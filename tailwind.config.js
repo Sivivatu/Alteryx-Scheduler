@@ -3,6 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: ['./frontend/**/*.{html,js}'],
   darkMode: 'class',
+  mode: 'jit',
   theme: {
     fontFamily: {
       satoshi: ['Satoshi', 'sans-serif'],
