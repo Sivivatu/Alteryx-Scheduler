@@ -6,8 +6,6 @@ from fastapi import APIRouter, Header, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-router = APIRouter()
-
 logger = logging.getLogger(__name__)
 log_config_file = (
     "/workspaces/Alteryx-Scheduler/app/app_logger/logging_configs/log_config.json"
@@ -15,6 +13,9 @@ log_config_file = (
 with open(log_config_file) as f_in:
     config = json.load(f_in)
     logging.config.dictConfig(config)
+
+router = APIRouter()
+
 
 templates = Jinja2Templates(directory="../frontend/templates")
 
@@ -27,9 +28,8 @@ templates = Jinja2Templates(directory="../frontend/templates")
 )
 async def toggle_sidebar(
     request: Request,
-    # token: Annotated[str, Depends(oauth2_scheme)],
     hx_request: Optional[str] = Header(None),
 ) -> HTMLResponse:
     context = {"request": request}
-    if hx_request:
-        return templates.TemplateResponse("partials/sidebar-hx.html", context)
+    # if hx_request:
+    return templates.TemplateResponse("partial/sidebar-hx.html", context)
