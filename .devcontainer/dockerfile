@@ -1,0 +1,13 @@
+FROM mcr.microsoft.com/devcontainers/python:3.12
+WORKDIR /workspaces/Alteryx-Scheduler
+
+# Install Node.js (you can specify the version you need)
+RUN apt-get update && apt-get install -y nodejs npm
+
+COPY ../ .
+
+# install virtual environment
+RUN pipenv install --deploy --ignore-pipfile
+
+# install node modules
+RUN npm install
