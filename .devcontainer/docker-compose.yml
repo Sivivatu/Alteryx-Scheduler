@@ -2,7 +2,10 @@ version: '3.8'
 services:
   app:
     container_name: axy-scheduler
-    image: mcr.microsoft.com/devcontainers/python:3.12
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    # image: mcr.microsoft.com/devcontainers/python:3.12
     volumes:
       - D:\\Alteryx-Scheduler:/workspaces/Alteryx-Scheduler
     working_dir: /workspaces/Alteryx-Scheduler

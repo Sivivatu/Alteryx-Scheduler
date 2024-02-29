@@ -1,10 +1,11 @@
 {
     "name": "Ayx-Scheduler",
+    // "build": { "dockerfile": "Dockerfile" },
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     "workspaceFolder": "/workspaces/Alteryx-Scheduler",
     // "runArgs": [ "--network", "host"],
-    "postStartCommand": "pipenv install", // && pipenv shell", //pipenv install --system && sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && 
+    "postStartCommand": "pipenv shell", // && pipenv shell", //pipenv install --system && sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && 
     "customizations": {
       "vscode": {
         "extensions": [
