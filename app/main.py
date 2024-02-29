@@ -5,6 +5,7 @@ import logging.config
 from typing import Annotated, Optional
 
 from fastapi import Depends, FastAPI, Header, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -28,22 +29,38 @@ app = FastAPI()
 app.include_router(auth.router)
 app.include_router(api.router)
 
+logger.info("Adding CORS middleware")
+origins = [
+    "http://localhost:3000",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.mount(
-    "/images", StaticFiles(directory="../frontend/templates/images"), name="images"
+    "/images", StaticFiles(directory="../frontend_hx/templates/images"), name="images"
 )
 app.mount(
     "/partials",
-    StaticFiles(directory="../frontend/templates/partials"),
+    StaticFiles(directory="../frontend_hx/templates/partials"),
     name="partials",
 )
-app.mount("/css", StaticFiles(directory="../frontend/templates/css"), name="css")
-app.mount("/js", StaticFiles(directory="../frontend/templates/js"), name="js")
-app.mount("/fonts", StaticFiles(directory="../frontend/templates/fonts"), name="fonts")
+app.mount("/css", StaticFiles(directory="../frontend_hx/templates/css"), name="css")
+app.mount("/js", StaticFiles(directory="../frontend_hx/templates/js"), name="js")
 app.mount(
-    "/favicon.ico", StaticFiles(directory="../frontend/templates"), name="favicon.ico"
+    "/fonts", StaticFiles(directory="../frontend_hx/templates/fonts"), name="fonts"
+)
+app.mount(
+    "/favicon.ico",
+    StaticFiles(directory="../frontend_hx/templates"),
+    name="favicon.ico",
 )
 
-templates = Jinja2Templates(directory="../frontend/templates")
+templates = Jinja2Templates(directory="../frontend_hx/templates")
 
 films = [
     {"name": "Blade Runner", "director": "Ridley Scott"},
@@ -53,11 +70,16 @@ films = [
 ]
 
 
-@app.get("/")
-async def read_root(request: Request, response_class=HTMLResponse):
+@app.get("/index", response_class=HTMLResponse)
+async def read_index(request: Request, response_class=HTMLResponse):
     context = {"request": request}
     return templates.TemplateResponse("index.html", context)
     # return {token: token}
+
+
+@app.get("/")
+async def read_root(request: Request):
+    return {"message": "Hello World"}
 
 
 # @app.get("/admin")
