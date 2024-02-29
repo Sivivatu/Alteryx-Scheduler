@@ -158,3 +158,4 @@ app/app_logger/logs/
 
 # password creation for testing
 app/internal/password.py
+node_modules
