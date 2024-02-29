@@ -4,14 +4,15 @@ WORKDIR /workspaces/Alteryx-Scheduler
 # Install Node.js (you can specify the version you need)
 RUN apt-get update && apt-get install -y nodejs npm
 
-# Copy Pipfile and Pipfile.lock
-COPY ../Pipfile ../Pipfile.lock ./
+# # Copy Pipfile and Pipfile.lock
+# COPY ../Pipfile ./
+# COPY ../Pipfile.lock ./
 
-# install virtual environment
-RUN pipenv install --deploy --ignore-pipfile
+# # install virtual environment
+# RUN pipenv install --deploy --ignore-pipfile
 
-# install node modules
-RUN npm install
+# # install node modules
+# RUN npm install
 
-COPY ../ ./
+# COPY ../ ./
 
