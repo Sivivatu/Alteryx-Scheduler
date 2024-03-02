@@ -40,7 +40,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+# TODO: How to Integrate with the frontend for typescript documentation
 app.mount(
     "/images", StaticFiles(directory="../frontend_hx/templates/images"), name="images"
 )
@@ -70,6 +70,7 @@ films = [
 ]
 
 
+# TODO: Can up date the responses to just return json for react
 @app.get("/index", response_class=HTMLResponse)
 async def read_index(request: Request, response_class=HTMLResponse):
     context = {"request": request}
