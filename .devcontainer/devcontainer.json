@@ -5,7 +5,7 @@
     "service": "app",
     "workspaceFolder": "/workspaces/Alteryx-Scheduler",
     // "runArgs": [ "--network", "host"],
-    "postStartCommand": "pipenv install && npm install", // && pipenv shell", //pipenv install --system && sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && 
+    "postStartCommand": "pipenv install && cd frontend && npm install", // && pipenv shell", //pipenv install --system && sudo chown -R vscode:vscode /workspaces/Alteryx-Scheduler && 
     "customizations": {
       "vscode": {
         "extensions": [
@@ -27,4 +27,3 @@
     ]
     // "remoteUser": "root"
   }
-  
