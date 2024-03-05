@@ -1,13 +1,14 @@
+import { ThemeProvider } from '@/components/theme-provider';
 import './App.css';
-import Sidebar from './components/Sidebar';
-import TopNavigation from './components/TopNavigation';
+import DashboardPage from './dashboard/page';
 
 function App() {
   return (
-    <div className="flex">
-      <TopNavigation />
-      <Sidebar />
-    </div>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="flex h-screen">
+        <DashboardPage />
+      </div>
+    </ThemeProvider>
   );
 }
 
