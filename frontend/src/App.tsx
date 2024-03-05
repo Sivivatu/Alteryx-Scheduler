@@ -5,7 +5,7 @@ import DashboardPage from './dashboard/page';
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="flex h-screen">
+      <div>
         <DashboardPage />
       </div>
     </ThemeProvider>
