@@ -1,15 +1,10 @@
-import { ThemeProvider } from '@/components/theme-provider';
-import './App.css';
+import { ThemeProvider } from './components/theme-provider';
 import DashboardPage from './dashboard/page';
 
-function App() {
+export default function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div>
-        <DashboardPage />
-      </div>
+      <DashboardPage />
     </ThemeProvider>
   );
 }
-
-export default App;
